@@ -37,7 +37,7 @@ export function FluxHelmReleaseDetailView(props: { name?: string; namespace?: st
 
 export const registerHelmRelease = () => {
   registerDetailsViewSection(({ resource }: { resource: HelmRelease }) => {
-    console.log('flux', { resource });
+    const { t } = useTranslation();
     if (resource.kind !== 'HelmRelease') return null;
 
     const themeName = localStorage.getItem('headlampThemePreference');
@@ -47,7 +47,7 @@ export const registerHelmRelease = () => {
     return (
       <>
         {cr && cr?.jsonData?.spec?.values && (
-          <SectionBox title="Values">
+          <SectionBox title={t('Values')}>
             <Editor
               language="yaml"
               value={YAML.stringify(cr?.jsonData?.spec?.values)}
@@ -57,16 +57,16 @@ export const registerHelmRelease = () => {
           </SectionBox>
         )}
 
-        <SectionBox title="Inventory">
+        <SectionBox title={t('Inventory')}>
           <HelmInventory name={resource.metadata.name} namespace={resource.metadata.namespace} />
         </SectionBox>
 
-        <SectionBox title="Dependencies">
+        <SectionBox title={t('Dependencies')}>
           <Table
             data={cr?.jsonData?.spec?.dependsOn}
             columns={[
               {
-                header: 'Name',
+                header: t('Name'),
                 accessorFn: item => (
                   <Link
                     routeName="helm"
@@ -80,7 +80,7 @@ export const registerHelmRelease = () => {
                 ),
               },
               {
-                header: 'Namespace',
+                header: t('Namespace'),
                 accessorFn: item => (
                   <Link
                     routeName="namespace"
@@ -93,7 +93,7 @@ export const registerHelmRelease = () => {
             ]}
           />
         </SectionBox>
-        <SectionBox title="Conditions">
+        <SectionBox title={t('Conditions')}>
           <ConditionsTable resource={cr?.jsonData} />
         </SectionBox>
       </>
