@@ -125,7 +125,7 @@ export function GenericMetricsChart(props: GenericMetricsChartProps) {
             <ToggleButtonGroup
               onChange={handleChartVariantChange}
               size="small"
-              aria-label="metric chooser"
+              aria-label={t('metric chooser')}
               value={chartVariant}
               exclusive
             >

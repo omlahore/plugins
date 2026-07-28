@@ -215,7 +215,7 @@ export function KnativeChart({
                 <ToggleButtonGroup
                   onChange={handleChartVariantChange}
                   size="small"
-                  aria-label="metric chooser"
+                  aria-label={t('metric chooser')}
                   value={selectedChart}
                   exclusive
                 >
