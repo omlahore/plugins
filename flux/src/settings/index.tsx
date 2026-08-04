@@ -9,6 +9,7 @@ import { type ChangeEvent, type ReactNode, useEffect, useState } from 'react';
 interface AutoSaveSwitchProps {
   settingKey: keyof PluginConfig;
   onSave: (key: keyof PluginConfig, value: boolean) => void;
+  label: string;
   defaultValue?: boolean;
   helperText?: ReactNode;
 }
@@ -16,6 +17,7 @@ interface AutoSaveSwitchProps {
 function AutoSaveSwitch({
   settingKey,
   onSave,
+  label,
   defaultValue,
   helperText = null,
 }: AutoSaveSwitchProps) {
@@ -44,7 +46,7 @@ function AutoSaveSwitch({
 
   return (
     <>
-      <Switch checked={value} onChange={handleChange} />
+      <Switch checked={value} onChange={handleChange} inputProps={{ 'aria-label': label }} />
       {helperText && <FormHelperText sx={{ ml: 1.75, mt: 0.5 }}>{helperText}</FormHelperText>}
     </>
   );
@@ -82,6 +84,7 @@ export function FluxSettings() {
       value: (
         <AutoSaveSwitch
           settingKey="linkHRelToKs"
+          label="Link HelmReleases to Kustomizations instead of HelmRepositories"
           defaultValue={currentConfig?.linkHRelToKs}
           onSave={handleSave}
         />
